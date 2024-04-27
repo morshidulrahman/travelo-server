@@ -38,6 +38,13 @@ app.get("/travels", async (req, res) => {
   res.send(travels);
 });
 
+app.post("/travels", async (req, res) => {
+  const travel = req.body;
+
+  const result = await databaseCollection.insertOne(travel);
+  res.send(result);
+});
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
