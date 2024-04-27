@@ -83,6 +83,13 @@ app.put("/travels/:id", async (req, res) => {
   res.send(result);
 });
 
+app.get("/mycountry/:name", async (req, res) => {
+  const name = req.params.name;
+  const query = { country_name: name };
+  const result = await databaseCollection.find(query).toArray();
+  res.send(result);
+});
+
 app.delete("/travels/:id", async (req, res) => {
   const id = req.params.id;
   const query = { _id: new ObjectId(id) };
