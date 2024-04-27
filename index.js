@@ -51,6 +51,12 @@ app.get("/travels/:id", async (req, res) => {
   const travels = await databaseCollection.findOne(query);
   res.send(travels);
 });
+app.delete("/travels/:id", async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: new ObjectId(id) };
+  const travels = await databaseCollection.deleteOne(query);
+  res.send(travels);
+});
 
 app.post("/travels", async (req, res) => {
   const travel = req.body;
