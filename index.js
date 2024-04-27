@@ -37,6 +37,14 @@ app.get("/travels", async (req, res) => {
   const travels = await databaseCollection.find().toArray();
   res.send(travels);
 });
+
+app.get("/travels/:email", async (req, res) => {
+  const email = req.params.email;
+  const query = { email: email };
+  const travels = await databaseCollection.find(query).toArray();
+  res.send(travels);
+});
+
 app.get("/travels/:id", async (req, res) => {
   const id = req.params.id;
   const query = { _id: new ObjectId(id) };
@@ -46,7 +54,6 @@ app.get("/travels/:id", async (req, res) => {
 
 app.post("/travels", async (req, res) => {
   const travel = req.body;
-
   const result = await databaseCollection.insertOne(travel);
   res.send(result);
 });
