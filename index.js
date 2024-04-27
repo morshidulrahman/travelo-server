@@ -49,8 +49,38 @@ app.get("/travels/:id", async (req, res) => {
   const id = req.params.id;
   const query = { _id: new ObjectId(id) };
   const travels = await databaseCollection.findOne(query);
-
   res.send(travels);
+});
+
+app.put("/travels/:id", async (req, res) => {
+  const id = req.params.id;
+  const {
+    seasonality,
+    country_name,
+    total_visitors_per_year,
+    travel_time,
+    average_cost,
+    short_description,
+    location,
+    tourists_spot_name,
+    image_url,
+  } = req.body;
+  const query = { _id: new ObjectId(id) };
+  const updateDoc = {
+    $set: {
+      seasonality,
+      country_name,
+      total_visitors_per_year,
+      travel_time,
+      average_cost,
+      short_description,
+      location,
+      tourists_spot_name,
+      image_url,
+    },
+  };
+  const result = await databaseCollection.updateOne(query, updateDoc);
+  res.send(result);
 });
 
 app.delete("/travels/:id", async (req, res) => {
