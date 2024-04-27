@@ -29,6 +29,15 @@ const dbConnect = async () => {
 };
 dbConnect();
 
+//  database collection
+const database = client.db("travelDB");
+const databaseCollection = database.collection("travels");
+
+app.get("/travels", async (req, res) => {
+  const travels = await databaseCollection.find().toArray();
+  res.send(travels);
+});
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
