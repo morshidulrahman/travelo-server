@@ -32,10 +32,16 @@ dbConnect();
 //  database collection
 const database = client.db("travelDB");
 const databaseCollection = database.collection("travels");
+const countryCollection = database.collection("countries");
+const blogsCollection = database.collection("blogs");
 
 app.get("/travels", async (req, res) => {
   const travels = await databaseCollection.find().toArray();
   res.send(travels);
+});
+app.get("/blogs", async (req, res) => {
+  const blog = await blogsCollection.find().toArray();
+  res.send(blog);
 });
 
 app.get("/mylist/:email", async (req, res) => {
@@ -83,6 +89,10 @@ app.put("/travels/:id", async (req, res) => {
   res.send(result);
 });
 
+app.get("/mycountry", async (req, res) => {
+  const result = await countryCollection.find().toArray();
+  res.send(result);
+});
 app.get("/mycountry/:name", async (req, res) => {
   const name = req.params.name;
   const query = { country_name: name };
